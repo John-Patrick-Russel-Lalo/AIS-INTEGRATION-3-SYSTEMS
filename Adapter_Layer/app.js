@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import authRoutes from './routes/authRoute.js';
+import studentRoutes from './routes/studentRoute.js';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -12,6 +13,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/api', studentRoutes);
 
 app.use((req, res) => {
   res.status(404).json({

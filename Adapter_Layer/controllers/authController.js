@@ -19,3 +19,22 @@ export const registerStudent = async (req, res) => {
         });
     }
 }
+
+
+export const loginStudent = async (req, res) => {
+    const {id} = req.body;
+    console.log("Received login request for student ID:", id);
+    try {
+        const token = await AuthService.loginStudent(id);
+        return res.status(200).json({
+            success: true,
+            token: token
+        });
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: "An error occurred while logging in the student: " + error.message
+        });
+    }
+}
+

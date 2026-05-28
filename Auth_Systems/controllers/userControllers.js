@@ -35,8 +35,9 @@ export const registerUser = async (req, res) => {
         console.log(e);
         res.status(500).json({success: false, message: "Internal Server Error"});
     }
-
 };
+
+
 
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;

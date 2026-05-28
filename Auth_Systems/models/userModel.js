@@ -52,11 +52,14 @@ export const insertUser = async (userProfile, email, password, conn) => {
     }
   )
 
-  console.log("Response from external API:", response.status, await response.text());
+  const data = await response.json();
+  console.log("data: ", data);
+  console.log("studentID: ", data.message._id);
+  const studentID = data.message._id;
   
   const [result] = await conn.query(
-  "INSERT INTO usertable (email, password) VALUES (?, ?)",
-  [email, hashedPassword]
+  "INSERT INTO usertable (id, email, password) VALUES (?, ?, ?)",
+  [studentID, email, hashedPassword]
 );
 
 return result;
@@ -94,6 +97,18 @@ export const loginUser = async (email, password, conn) => {
         error.status = 400;
         throw error;
     }
+    
+    const response = await fetch(
+        `http://localhost:3500/auth/login`,{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          }, 
+          body: JSON.stringify({ id: user[0].id }),
+        }
+      )
+    
+
     console.log("Generated Token:", token);
     console.log("User ID:", user[0].id);
     return token

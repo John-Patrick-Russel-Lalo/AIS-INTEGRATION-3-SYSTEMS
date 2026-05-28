@@ -18,7 +18,18 @@ export const create = async (profile) => {
         body: JSON.stringify(transformedProfile)
     });
 
-    console.log(Response);
-
     return await Response.json();
 }
+
+
+export const loginStudent = async (id) => {
+    const Response = await fetch(`https://ais-simulated-legacy.onrender.com/api/students/${id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    console.log("Login response:", Response.status, await Response.text());
+    return await Response.json();
+}
+

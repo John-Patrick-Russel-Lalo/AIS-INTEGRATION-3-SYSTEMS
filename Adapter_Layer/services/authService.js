@@ -22,3 +22,7 @@ export const registerStudent = async (studentProfile) => {
     }
     return await AuthAdapter.create(studentProfile);
 }
+
+export const loginStudent = async (id) => {
+    return await AuthAdapter.loginStudent(id);
+}
